@@ -27,8 +27,6 @@ fetch(url, {
 
         if (json.length > 0) {
             json.reverse().forEach(entry => {
-                //console.log(entry);
-
                 result += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n';
                 result += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
             });
