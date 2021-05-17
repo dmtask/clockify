@@ -12,9 +12,10 @@ fetch('https://api.clockify.me/api/v1/workspaces/' + workspace_id + '/user/' + u
         'X-Api-Key': process.env.API_KEY,
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({"end": moment().format('YYYY-MM-DDTHH:mm:ssZ')})
+    body: JSON.stringify({"end": moment().utc().format('YYYY-MM-DDTHH:mm:ss') + 'Z'})
 })
     .then(res => res.json())
     .then(json => {
         console.log(json);
+        console.log('\nTimer stopped!');
     });
