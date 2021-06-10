@@ -11,4 +11,6 @@ if (process.argv[2] === 'getTime') {
     get_time(workspace_id, user_id, api_key, process.argv[3]);
 } else if (process.argv[2] === 'stopTimer') {
     stop_timer(workspace_id, user_id, api_key);
+} else {
+    console.error('Befehl nicht gefunden! Folgende Befehle gibt es aktuell:\n\n- node index.js getTime DATUMSANGABE\n- node index.js stopTimer\n\n');
 }
