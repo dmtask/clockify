@@ -2,7 +2,7 @@
   "name": "clockify",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "dmtask",
+  "author": "DM - Task",
   "license": "MIT",
   "private": true,
   "dependencies": {
