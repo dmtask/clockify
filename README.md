@@ -4,8 +4,7 @@ Scriptsammlung für https://clockify.me/
 
 ## Installation
 - `yarn install`
-- `.env.example` zu `.env` umbenennen/kopieren
+- `.env.example` zu `.env` umbenennen/kopieren und entsprechend anpassen
 
 ## Benutzung
-- `node index.js [DATUM]`: Auslesen von Zeiten eines Tages
-- `yarn run stop`: Stoppt aktuell laufenden Timer
+- `node index.js help`: Anzeigen der Hilfe und auslesen aller Befehle die das Script unterstützt
