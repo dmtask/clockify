@@ -19,20 +19,26 @@ function get_time(workspace_id, user_id, api_key, user_time) {
     })
         .then(res => res.json())
         .then(json => {
-            let result = '';
+            let resultForCopy = '',
+                completeTime = 0;
+
+            // TODO: Auslesen einer Zwischenzeit des aktuellen Tages
 
             if (json.length > 0) {
                 json.reverse().forEach(entry => {
-                    result += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n';
-                    result += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
+                    resultForCopy += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n';
+                    resultForCopy += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
+
+                    completeTime += moment.duration(entry['timeInterval'].duration)._milliseconds;
                 });
 
-                console.log(result);
-                console.log('Copied to clipboard!');
+                console.info(resultForCopy);
+                console.info('Copied to clipboard!');
+                console.info('Gesamt: ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
 
-                clipboardy.writeSync(result);
+                clipboardy.writeSync(resultForCopy);
             } else {
-                console.log('Keine Zeiten gefunden!');
+                console.error('Keine Zeiten gefunden!');
             }
         });
 }

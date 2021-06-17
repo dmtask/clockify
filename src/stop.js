@@ -12,8 +12,8 @@ function stop_timer(workspace_id, user_id, api_key) {
     })
         .then(res => res.json())
         .then(json => {
-            console.log(json);
-            console.log('\nTimer stopped!');
+            console.info(json);
+            console.info('\nTimer stopped!');
         });
 }
 

@@ -27,7 +27,7 @@ if (process.argv[2] === 'getTime') {
 } else if (process.argv[2] === 'stopTimer') {
     stop_timer(workspace_id, user_id, api_key);
 } else if (process.argv[2] === 'help') {
-    console.log('DM - Task clockify Scripts. Folgende Befehle gibt es aktuell:\n\n' + commandList);
+    console.info('DM - Task clockify Scripts. Folgende Befehle gibt es aktuell:\n\n' + commandList);
 } else {
     console.error('Befehl nicht gefunden! Folgende Befehle gibt es aktuell:\n\n' + commandList);
 }
