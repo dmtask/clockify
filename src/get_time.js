@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 const clipboardy = require('clipboardy');
 
+const {consoleInfo, consoleSuccess, consoleError} = require('../lib/console');
+
 function get_time(workspace_id, user_id, api_key, user_time) {
     let userDate = moment().format('YYYY-MM-DD');
     let url = 'https://api.clockify.me/api/v1/workspaces/' + workspace_id + '/user/' + user_id + '/time-entries?start=' + userDate + 'T07:00:00Z';
@@ -32,13 +34,13 @@ function get_time(workspace_id, user_id, api_key, user_time) {
                     completeTime += moment.duration(entry['timeInterval'].duration)._milliseconds;
                 });
 
-                console.info(resultForCopy);
-                console.info('Copied to clipboard!');
-                console.info('Gesamt: ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
+                consoleInfo(resultForCopy);
+                consoleInfo('Gesamt: ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
+                consoleSuccess('\nZeiten in Zwischenablage kopiert!');
 
                 clipboardy.writeSync(resultForCopy);
             } else {
-                console.error('Keine Zeiten gefunden!');
+                consoleError('Keine Zeiten gefunden!');
             }
         });
 }
