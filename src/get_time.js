@@ -22,23 +22,33 @@ function get_time(workspace_id, user_id, api_key, user_time) {
         .then(res => res.json())
         .then(json => {
             let resultForCopy = '',
-                completeTime = 0;
-
-            // TODO: Auslesen einer Zwischenzeit des aktuellen Tages
+                completeTime = 0,
+                timerIsRunning = false;
 
             if (json.length > 0) {
                 json.reverse().forEach(entry => {
                     resultForCopy += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n';
-                    resultForCopy += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
+                    if (entry['timeInterval'].end !== null) {
+                        resultForCopy += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
+                    } else {
+                        resultForCopy += 'Ende: -\n\n';
+                    }
 
                     completeTime += moment.duration(entry['timeInterval'].duration)._milliseconds;
+                    if (entry['timeInterval'].duration === null) {
+                        timerIsRunning = true;
+                    }
                 });
 
                 consoleInfo(resultForCopy);
                 consoleInfo('Gesamt: ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
-                consoleSuccess('\nZeiten in Zwischenablage kopiert!');
 
-                clipboardy.writeSync(resultForCopy);
+                if (!timerIsRunning) {
+                    clipboardy.writeSync(resultForCopy);
+                    consoleSuccess('\nZeiten in Zwischenablage kopiert!');
+                } else {
+                    consoleError('ACHTUNG: Die Zeiten wurden nicht in die Zwischenablage kopiert, da der Timer noch läuft!');
+                }
             } else {
                 consoleError('Keine Zeiten gefunden!');
             }

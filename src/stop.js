@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const moment = require('moment');
 
-const {consoleInfo, consoleSuccess} = require('../lib/console');
+const {consoleSuccess} = require('../lib/console');
 
 function stop_timer(workspace_id, user_id, api_key) {
     fetch('https://api.clockify.me/api/v1/workspaces/' + workspace_id + '/user/' + user_id + '/time-entries', {
@@ -13,8 +13,7 @@ function stop_timer(workspace_id, user_id, api_key) {
         body: JSON.stringify({"end": moment().utc().format('YYYY-MM-DDTHH:mm:ss') + 'Z'})
     })
         .then(res => res.json())
-        .then(json => {
-            consoleInfo(json);
+        .then(() => {
             consoleSuccess('\nTimer stopped!');
         });
 }
