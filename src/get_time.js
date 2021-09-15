@@ -36,12 +36,14 @@ function get_time(workspace_id, user_id, api_key, user_time) {
 
                     completeTime += moment.duration(entry['timeInterval'].duration)._milliseconds;
                     if (entry['timeInterval'].duration === null) {
+                        // Die aktuelle Gesamtzeit ausrechnen
+                        completeTime += moment().diff(moment(entry['timeInterval'].start));
                         timerIsRunning = true;
                     }
                 });
 
                 consoleInfo(resultForCopy);
-                consoleInfo('Gesamt: ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
+                consoleInfo('Gesamt' + (timerIsRunning ? ' (Aktuell)' : '') + ': ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
 
                 if (!timerIsRunning) {
                     clipboardy.writeSync(resultForCopy);
