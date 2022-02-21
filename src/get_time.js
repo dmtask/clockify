@@ -27,9 +27,9 @@ function get_time(workspace_id, user_id, api_key, user_time) {
 
             if (json.length > 0) {
                 json.reverse().forEach(entry => {
-                    resultForCopy += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n';
+                    resultForCopy += 'Start: ' + moment(entry['timeInterval'].start).format('DD.MM.YYYY HH:mm') + ' Uhr\n';
                     if (entry['timeInterval'].end !== null) {
-                        resultForCopy += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm:ss') + ' Uhr\n\n';
+                        resultForCopy += 'Ende: ' + moment(entry['timeInterval'].end).format('DD.MM.YYYY HH:mm') + ' Uhr\n\n';
                     } else {
                         resultForCopy += 'Ende: -\n\n';
                     }
@@ -43,7 +43,7 @@ function get_time(workspace_id, user_id, api_key, user_time) {
                 });
 
                 consoleInfo(resultForCopy);
-                consoleInfo('Gesamt' + (timerIsRunning ? ' (Aktuell)' : '') + ': ' + moment(completeTime).subtract(1, 'hours').format('HH:mm:ss') + ' Std.');
+                consoleInfo('Gesamt' + (timerIsRunning ? ' (Aktuell)' : '') + ': ' + moment(completeTime).subtract(1, 'hours').format('HH:mm') + ' Std.');
 
                 if (!timerIsRunning) {
                     clipboardy.writeSync(resultForCopy);
